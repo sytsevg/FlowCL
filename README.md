@@ -59,7 +59,11 @@ handles the data transfer automatically.
 Have a look at the [FlowCL application developers documentation](fcldocu.pdf)
 for a quick overview of the features.
 
-Tested and works on Windows 7,8 with VS2012 and Linux with GCC 4.7+, OpenCL v1.2, 
-compiler should have C++11 support.
-This is a PRE-ALPHA project, and hasnt been extensively tested, only for proof of
+Tested and works on:
+
+Windows 7, 8 with VS2012, Linux with GCC 4.7+, OpenCL v1.2
+
+Compiler should have C++11 support.
+
+This is a PRE-ALPHA project, and has not been extensively tested, only for proof of
 conept.
