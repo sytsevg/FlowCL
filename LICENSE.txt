@@ -1,7 +1,7 @@
 FlowCL -- High-level OpenCL Framework using the dataflow model 
           execution strategy and for application developer API  
           
-Copyright (C) 2013  Sytse van Geldermalsen
+Copyright (C) 2013  Sytse van Geldermalsen, sytsevg@gmail.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
