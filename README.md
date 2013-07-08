@@ -14,43 +14,45 @@ is enforced depending on the dependencies of the graph.
 This creates a novel way of programming complex algorithms using the dataflow concept
 and easy prototyping.
 
-eg:
+What does FlowCL API look like?
 
     #include "FlowCL.hpp"
     
     void Example()
     {
-      using namespace FlowCL;
-    
-    	Context fcl;
-      
-      //std::cout << fcl.GetDebugInfo();  // Print general OpenCL platform & device info
-    	//getchar();
-    
-    	fcl.CompileFile( file_path );
-    	size_t big_mem = 1<<27;                       // 128mb
-    	size_t big_size = big_mem / sizeof(float);
-    
-    	Memory mem_in = fcl.CreateMemory( big_mem );  // Create memory of size big_mem bytes
-      Memory mem_out = fcl.CreateMemory( big_mem );
-      float* data_out = mem_out.GetData();          // Get data pointer
-    
-      // Create operation that will run on the GPU device if availalbe
-    	Operation fo_one = fcl.CreateOperation( fcl.GetGPUDevice(), "AddOne" );
-      Operation fo_two = fcl.CreateOperation( fcl.GetCPUDebice(), "AddOne" );
-      
-      // Memory to be copied to the GPU
-    	fo_one.SetArgInput( 0, mem_in );
-      
-      // Memory to be copied back
-    	fo_one.SetArgOutput( 1, mem_out );
-    
-    
-    	//Blocking run
-    	fcl.Run();
-    	
-      // data_out up to date, inspect contents
+		using namespace FlowCL;
+		
+		Context fcl;
+		
+		//std::cout << fcl.GetDebugInfo();  // Print general OpenCL platform & device info
+		
+		fcl.CompileFile( file_path );               // Compile for all available devices
+		size_t big_mem = 1<<27;                     // 128mb
+		size_t big_size = big_mem / sizeof(float);  // Number of floats in big_mem
+		
+		Memory mem_in = fcl.CreateMemory( big_mem );  // Create memory of size big_mem bytes
+		Memory mem_out = fcl.CreateMemory( big_mem );
+		float* data_out = (float*)mem_out.GetData();  // Get raw data pointer
+		
+		// Create operation that will run on the GPU device if availalbe
+		Operation fo_one = fcl.CreateOperation( fcl.GetGPUDevice(), "AddOne" );
+		fo_one.SetArgInput( 0, mem_in );   // Memory to be copied to the GPU
+		fo_one.SetArgOutput( 1, mem_out ); // Memory to be copied back
+		fo_one.SetWorkSize( big_size );    // Granularity of work items
+		
+		fcl.Run(); // Run the created graph
+		
+		// data_out up to date, inspect contents
     }
+
+This code snippet is simply greates a graph of one operation that will execute
+the kernel on the GPU while automatically handling the data according to the
+dependencies.
+
+The programmer could simply change fcl.GetGPUDevice() to fcl.GetCPUDevice()
+if they want to use the CPU instead.
+
+
 
 
 
