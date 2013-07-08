@@ -1,6 +1,6 @@
 # FlowCL
 
-For the forfilment of masters Computational Science of University van Amsterdam
+For the forfilment of masters Computational Science of University van Amsterdam 2013
 I created a High-level OpenCL Framework using the dataflow model for ease of
 application development, and using the dataflow model of execution.
 
@@ -52,14 +52,14 @@ dependencies.
 The programmer could simply change fcl.GetGPUDevice() to fcl.GetCPUDevice()
 if they want to use the CPU instead.
 
+Inter operation dependencies are simply declared by setting the argument
+fo_one.SetDependency(parent operation, index, memory), while the framework
+handles the data transfer automatically.
 
+Have a look at the FlowCL application developers documentation fcldocu.pdf
+for a quick overview of the features.
 
-
-
-Note:
-
+Tested and works on Windows 7,8 with VS2012 and Linux with GCC 4.7+
 Compiler should have C++11 support.
 This is a PRE-ALPHA project, and hasnt been extensively tested, only for proof of
 conept.
-
-Tested and works on Windows 7,8 with VS2012 and Linux with GCC 4.7+
