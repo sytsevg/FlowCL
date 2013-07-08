@@ -56,7 +56,7 @@ Inter operation dependencies are simply declared by setting the argument
 fo_one.SetDependency(parent operation, index, memory), while the framework
 handles the data transfer automatically.
 
-Have a look at the FlowCL application developers documentation fcldocu.pdf
+Have a look at the [FlowCL application developers documentation](fcldocu.pdf)
 for a quick overview of the features.
 
 Tested and works on Windows 7,8 with VS2012 and Linux with GCC 4.7+, OpenCL v1.2, 
