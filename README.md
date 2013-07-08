@@ -18,20 +18,20 @@ What does FlowCL API look like?
 
     #include "FlowCL.hpp"
     
-    void Example()
+    void Main()
     {
 		using namespace FlowCL;
-		
 		Context fcl;
-		
 		//std::cout << fcl.GetDebugInfo();  // Print general OpenCL platform & device info
 		
-		fcl.CompileFile( file_path );               // Compile for all available devices
+		fcl.CompileFile( file_path );       // Compile for all available devices
+		
 		size_t big_mem = 1<<27;                     // 128mb
 		size_t big_size = big_mem / sizeof(float);  // Number of floats in big_mem
 		
 		Memory mem_in = fcl.CreateMemory( big_mem );  // Create memory of size big_mem bytes
 		Memory mem_out = fcl.CreateMemory( big_mem );
+		
 		float* data_out = (float*)mem_out.GetData();  // Get raw data pointer
 		
 		// Create operation that will run on the GPU device if availalbe
@@ -41,7 +41,6 @@ What does FlowCL API look like?
 		fo_one.SetWorkSize( big_size );    // Granularity of work items
 		
 		fcl.Run(); // Run the created graph
-		
 		// data_out up to date, inspect contents
     }
 
