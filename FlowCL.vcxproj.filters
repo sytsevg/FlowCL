@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Framework.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Edge.cpp">
+      <Filter>Edge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Device.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Operation.cpp">
+      <Filter>Operation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Synchronization.cpp">
+      <Filter>Synchronization</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FlowCL.cpp">
+      <Filter>FlowCL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryManager.cpp">
+      <Filter>Memory Manager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Framework.hpp">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FrameworkTypes.hpp">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Edge.hpp">
+      <Filter>Edge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Device.hpp">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Operation.hpp">
+      <Filter>Operation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Synchronization.hpp">
+      <Filter>Synchronization</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FlowCL.hpp">
+      <Filter>FlowCL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MemoryManager.hpp">
+      <Filter>Memory Manager</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\kernel.cl">
+      <Filter>Kernels</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{ad100412-b61e-414f-bdfd-595980603535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Edge">
+      <UniqueIdentifier>{9876584e-672c-4b93-89ee-0d677e2bb903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Kernels">
+      <UniqueIdentifier>{ada4ab4a-5dcd-4389-830a-c2cf80c136b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Device">
+      <UniqueIdentifier>{a211d4f6-5b23-4e2f-ae9a-19eb9b19547b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Operation">
+      <UniqueIdentifier>{09242ad1-cb63-4c1a-a92a-8786ac16eacc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FlowCL">
+      <UniqueIdentifier>{424cc272-0eb0-4667-93fd-0027c40ca52a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Synchronization">
+      <UniqueIdentifier>{1b2b9c61-fe62-4e9b-b618-3c354eb7d3a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory Manager">
+      <UniqueIdentifier>{beaafec0-7044-45c5-a5a4-135a458fbc37}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
