@@ -1,7 +1,7 @@
 # FlowCL
 
 For the forfilment of masters Computational Science of University van Amsterdam 2013
-I created a High-level OpenCL Framework using the dataflow model for ease of
+the author created a High-level OpenCL Framework using the dataflow model for ease of
 application development, and using the dataflow model of execution.
 
 This framework aims to create an easy prototyping solution to OpenCL, automatically
