@@ -22,37 +22,35 @@ What does FlowCL API look like?
     {
 		using namespace FlowCL;
 		Context fcl;
+				
+		fcl.CompileFile( file_path );       // Initialise and compile for all available devices
 		//std::cout << fcl.GetDebugInfo();  // Print general OpenCL platform & device info
-		
-		fcl.CompileFile( file_path );       // Compile for all available devices
 		
 		size_t big_mem = 1<<27;                     // 128mb
 		size_t big_size = big_mem / sizeof(float);  // Number of floats in big_mem
 		
-		Memory mem_in = fcl.CreateMemory( big_mem );  // Create memory of size big_mem bytes
-		Memory mem_out = fcl.CreateMemory( big_mem );
-		
-		float* data_out = (float*)mem_out.GetData();  // Get raw data pointer
+		Memory mem_io = fcl.CreateMemory( big_mem );  // Create memory of size big_mem bytes
+		float* data_out = (float*)mem_io.GetData();   // Get raw data pointer
 		
 		// Create operation that will run on the GPU device if availalbe
-		Operation fo_one = fcl.CreateOperation( fcl.GetGPUDevice(), "AddOne" );
-		fo_one.SetArgInput( 0, mem_in );   // Memory to be copied to the GPU
-		fo_one.SetArgOutput( 1, mem_out ); // Memory to be copied back
-		fo_one.SetWorkSize( big_size );    // Granularity of work items
+		Operation fo_one = fcl.CreateOperation( fcl.GetGPUDevice(), "FunctionName" );
+		fo_one.SetArgInput( 0, mem_io );  // Memory to be copied to the GPU
+		fo_one.SetArgOutput( 1, mem_io ); // Memory to be copied back
+		fo_one.SetWorkSize( big_size );   // Granularity of work items
 		
 		fcl.Run(); // Run the created graph
 		// data_out up to date, inspect contents
     }
 
 This code snippet is simply greates a graph of one operation that will execute
-the kernel on the GPU while automatically handling the data according to the
+the kernel function on the GPU while automatically handling the data according to the
 dependencies.
 
 The programmer could simply change fcl.GetGPUDevice() to fcl.GetCPUDevice()
-if they want to use the CPU instead.
+if they want to use the CPU to run the operation instead.
 
 Inter operation dependencies are simply declared by setting the argument
-fo_one.SetDependency(parent operation, index, memory), while the framework
+fo_one.SetDependency(parent_operation, index, memory), while the framework
 handles the data transfer automatically.
 
 Have a look at the [FlowCL application developers documentation](fcldocu.pdf)
