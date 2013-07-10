@@ -2,7 +2,8 @@
 
 For the forfilment of masters Computational Science of University van Amsterdam 2013
 the author created a High-level OpenCL Framework using the dataflow model for ease of
-application development, and using the dataflow model of execution.
+application development, and introducing a novel API to create and prototype high 
+performance applications using the dataflow model.
 
 This framework aims to create an easy prototyping solution to OpenCL, automatically
 handling ALL devices of MULTIPLE platforms automatically by abstracting devices.
@@ -21,9 +22,13 @@ What does FlowCL API look like?
     void Main()
     {
 		using namespace FlowCL;
+			
 		Context fcl;
-				
-		fcl.CompileFile( file_path );       // Initialise and compile for all available devices
+		// Initialise and compile kernel for all available devices		
+		fcl.CompileSource( "kernel void WorkId( global float* data )\
+						    {\
+								data[get_global_id(0)] = get_global_id(0);\
+							}" );
 		//std::cout << fcl.GetDebugInfo();  // Print general OpenCL platform & device info
 		
 		size_t big_mem = 1<<27;                     // 128mb
@@ -33,17 +38,19 @@ What does FlowCL API look like?
 		float* data_out = (float*)mem_io.GetData();   // Get raw data pointer
 		
 		// Create operation that will run on the GPU device if availalbe
-		Operation fo_one = fcl.CreateOperation( fcl.GetGPUDevice(), "FunctionName" );
+		Operation fo_one = fcl.CreateOperation( fcl.GetGPUDevice(), "WorkId" );
 		fo_one.SetArgInput( 0, mem_io );  // Memory to be copied to the GPU
-		fo_one.SetArgOutput( 1, mem_io ); // Memory to be copied back
+		fo_one.SetArgOutput( 0, mem_io ); // Memory to be copied back
 		fo_one.SetWorkSize( big_size );   // Granularity of work items
+
+		//std::cout << fcl.GetDebugInfo();
 		
 		fcl.Run(); // Run the created graph
 		// data_out up to date, inspect contents
     }
 
 This code snippet is simply greates a graph of one operation that will execute
-the kernel function on the GPU while automatically handling the data according to the
+the kernel function "WorkId" on the GPU while automatically handling the data according to the
 dependencies.
 
 The programmer could simply change fcl.GetGPUDevice() to fcl.GetCPUDevice()
