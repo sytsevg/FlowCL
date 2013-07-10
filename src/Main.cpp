@@ -486,11 +486,35 @@ int main()
 
 	try
 	{
-		Context con;
-		con.CompileSource("kernel void Void(void){}");
-		std::cout << con.GetDeviceInfo();
+		Context fcl;
+		// Initialise and compile kernel for all available devices		
+		fcl.CompileSource( "kernel void WorkId( global float* data )\
+						    {\
+								data[get_global_id(0)] = get_global_id(0);\
+							}" );
+		//std::cout << fcl.GetDebugInfo();  // Print general OpenCL platform & device info
+		
+		size_t big_mem = 1<<27;                     // 128mb
+		size_t big_size = big_mem / sizeof(float);  // Number of floats in big_mem
+		
+		Memory mem_io = fcl.CreateMemory( big_mem );  // Create memory of size big_mem bytes
+		float* data_out = (float*)mem_io.GetData();   // Get raw data pointer
+		data_out[0] = 1;
+		data_out[1] = 2;
+		
+		// Create operation that will run on the GPU device if availalbe
+		Operation fo_one = fcl.CreateOperation( fcl.GetGPUDevice(), "WorkId" );
+		fo_one.SetArgInput( 0, mem_io );  // Memory to be copied to the GPU
+		fo_one.SetArgOutput( 0, mem_io ); // Memory to be copied back
+		fo_one.SetWorkSize( big_size );   // Granularity of work items
+
+		//std::cout << fcl.GetDebugInfo();
+		
+		fcl.Run(); // Run the created graph
+		// data_out up to date, inspect contents
 
 		//Various tests
+
 		//AddNumTestCPUGPU();
 		//IncrTestCPUGPU();
 		//ComputeBoundTestCPUGPU();
@@ -506,6 +530,8 @@ int main()
 	{
 		std::cout << e.what();
 	}
+
+	//getchar();
 
 	//std::cout << "Done." << std::endl;
 

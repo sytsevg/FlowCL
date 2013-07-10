@@ -271,7 +271,7 @@ namespace Dataflow
 
 			if( *execute )    // Value of execute changes to false upon termination
 			{
-				//Process();
+				Process();
 			}
 
 			SyncOutput();
